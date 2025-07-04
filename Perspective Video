@@ -1,0 +1,43 @@
+import cv2
+import numpy as np
+
+# Open the video file or webcam (0 for webcam)
+cap = cv2.VideoCapture(0)  # or use 'video.mp4' for a file
+
+# Define source points (corners of the quadrilateral region in original image)
+src_points = np.float32([
+    [100, 100],
+    [500, 100],
+    [100, 400],
+    [500, 400]
+])
+
+# Define destination points (corners of the output rectangle)
+dst_points = np.float32([
+    [0, 0],
+    [400, 0],
+    [0, 400],
+    [400, 400]
+])
+
+# Get the perspective transform matrix
+M = cv2.getPerspectiveTransform(src_points, dst_points)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Apply perspective transform to the frame
+    warped = cv2.warpPerspective(frame, M, (400, 400))  # output size (width, height)
+
+    # Show original and warped frame
+    cv2.imshow('Original Video', frame)
+    cv2.imshow('Perspective Transformed Video', warped)
+
+    # Exit on pressing 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
