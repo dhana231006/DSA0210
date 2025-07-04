@@ -1,0 +1,25 @@
+import cv2
+import numpy as np
+
+# Step 1: Read the image
+image = cv2.imread('your_image.jpg')  # Replace with your image file path
+
+# Step 2: Convert to grayscale (optional but common before dilation)
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Step 3: Apply threshold to get binary image (necessary for dilation)
+_, binary = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
+
+# Step 4: Create a kernel
+kernel = np.ones((5, 5), np.uint8)
+
+# Step 5: Apply dilation
+dilated = cv2.dilate(binary, kernel, iterations=1)
+
+# Step 6: Display the original and dilated images
+cv2.imshow('Original Image', image)
+cv2.imshow('Dilated Image', dilated)
+
+# Wait until a key is pressed and then close the image windows
+cv2.waitKey(0)
+cv2.destroyAllWindows()
