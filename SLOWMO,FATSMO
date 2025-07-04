@@ -1,0 +1,37 @@
+import cv2
+
+# Step 1: Load the captured video
+video_path = 'your_video.mp4'  # Replace with your video file path
+cap = cv2.VideoCapture(video_path)
+
+if not cap.isOpened():
+    print("Error: Cannot open video file.")
+    exit()
+
+# Choose playback mode: 'normal', 'slow', or 'fast'
+playback_mode = 'slow'  # Change to 'normal' or 'fast' as needed
+
+# Set frame delay based on mode (lower = faster)
+if playback_mode == 'normal':
+    delay = 30  # ~30 FPS
+elif playback_mode == 'slow':
+    delay = 100  # Slower playback
+elif playback_mode == 'fast':
+    delay = 5  # Faster playback
+else:
+    delay = 30  # Default to normal if invalid input
+
+# Step 2: Read and display video frames
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break  # Exit loop if video ends
+
+    cv2.imshow(f'Video Playback - {playback_mode.title()} Motion', frame)
+
+    if cv2.waitKey(delay) & 0xFF == ord('q'):
+        break
+
+# Step 3: Release and close windows
+cap.release()
+cv2.destroyAllWindows()
