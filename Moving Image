@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread('your_image.jpg')  # Replace with your image filename
+cv2.imshow('Original Image', image)
+
+# Define translation values
+tx = 100  # shift along x-axis (positive = right, negative = left)
+ty = 50   # shift along y-axis (positive = down, negative = up)
+
+# Create the translation matrix
+translation_matrix = np.float32([[1, 0, tx], [0, 1, ty]])
+
+# Apply the translation using warpAffine
+translated_image = cv2.warpAffine(image, translation_matrix, (image.shape[1], image.shape[0]))
+
+# Show the moved image
+cv2.imshow('Moved Image', translated_image)
+
+# Wait for key press and close windows
+cv2.waitKey(0)
+cv2.destroyAllWindows()
