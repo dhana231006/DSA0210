@@ -1,0 +1,23 @@
+import cv2
+
+# Step 1: Read the image
+image = cv2.imread('your_image.jpg')  # Replace with your image file path
+
+if image is None:
+    print("Error: Image not found.")
+    exit()
+
+# Step 2: Resize to a smaller version (e.g., 50% of original size)
+smaller = cv2.resize(image, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+
+# Step 3: Resize to a bigger version (e.g., 200% of original size)
+bigger = cv2.resize(image, None, fx=2.0, fy=2.0, interpolation=cv2.INTER_LINEAR)
+
+# Step 4: Display all images
+cv2.imshow('Original Image', image)
+cv2.imshow('Smaller Image (0.5x)', smaller)
+cv2.imshow('Bigger Image (2x)', bigger)
+
+# Step 5: Wait and close windows
+cv2.waitKey(0)
+cv2.destroyAllWindows()
