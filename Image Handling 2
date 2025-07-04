@@ -1,0 +1,30 @@
+import cv2
+import matplotlib.pyplot as plt
+
+# 1. Read the image
+image = cv2.imread('your_image.jpg')  # Replace with the path to your image
+
+# 2. Convert to Grayscale (Canny needs single channel image)
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# 3. Apply Canny Edge Detection
+# Syntax: cv2.Canny(image, threshold1, threshold2)
+edges = cv2.Canny(gray_image, 100, 200)
+
+# 4. Display original and edge-detected images
+plt.figure(figsize=(10, 5))
+
+# Show original image
+plt.subplot(1, 2, 1)
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+plt.title('Original Image')
+plt.axis('off')
+
+# Show edge image
+plt.subplot(1, 2, 2)
+plt.imshow(edges, cmap='gray')
+plt.title('Canny Edge Detection')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
