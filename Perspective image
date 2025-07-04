@@ -1,0 +1,25 @@
+import cv2
+import numpy as np
+
+# Load the image
+image = cv2.imread('your_image.jpg')
+
+# Define source points (manually or via mouse click)
+# These should be the four corners of the region you want to warp
+# Format: np.float32([[x1,y1], [x2,y2], [x3,y3], [x4,y4]])
+src_points = np.float32([[100, 100], [400, 100], [100, 400], [400, 400]])
+
+# Define destination points - the size you want the transformed image to be
+dst_points = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+
+# Get the Perspective Transform Matrix
+matrix = cv2.getPerspectiveTransform(src_points, dst_points)
+
+# Apply the perspective transformation
+warped = cv2.warpPerspective(image, matrix, (300, 300))
+
+# Show results
+cv2.imshow('Original Image', image)
+cv2.imshow('Warped Image', warped)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
